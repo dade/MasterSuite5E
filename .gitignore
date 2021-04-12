@@ -1,0 +1,26 @@
+# compiled files
+*.com
+*.exe
+*.dll
+
+# packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs
+*.log
+
+# OS specific
+*._
+*.DS_Store
+*.DS_Store?
+*.Thumbs.db
+
+# Custom
+make.bat

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+	
+	<windowclass name="npc_combat" merge="join">
+		<sheetdata>
+			<subwndow name="master_effects_contents" insertbefore="headeer_traits">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0"/>
+					<left offset="5"/>
+					<right offset="5"/>
+				</anchored>
+				<class>master_effects_subwindow</class>
+				<activate/>
+				<fastinit/>
+				<invisible/>
+			</subwndow>
+		</sheetdata>
+	</windowclass>
+	
+</root>

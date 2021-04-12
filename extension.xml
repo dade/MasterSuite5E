@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root version="3.0" release="1.0.0">
+	
+	<properties>
+		<name>[DEV] D&amp;D 5E Master Suite</name>
+		<description>
+			<text>D&amp;D 5E Master Suite - Dev Build v2.0</text>
+			<author>Dale "badgr" Emasiri</author>
+		</description>
+		<loadorder>100</loadorder>
+		<ruleset>
+			<name>5E</name>
+		</ruleset>
+	</properties>
+	
+	<announcement text="Master Suite 5E v2.0\rA combination of some features and a set of extensions designed for Fantasy Grounds Unity, combined into a single package to work seamlessly together." font="emotefont"/>
+	
+	<base>
+		<includefile source="strings/ms_global.xml"/>
+		<includefile source="graphics/graphics.xml"/>
+		<includefile source="common/template_ms.xml"/>
+		<includefile source="utility/ms_utility.xml"/>
+		
+		<!-- Effects Windows -->
+		<includefile source="campaign/ms_record_char_weapon.xml"/>
+		<includefile source="campaign/ms_record_item.xml"/>
+		<includefile source="campaign/ms_record_npc.xml"/>
+		<includefile source="campaign/ms_record_char_abilities.xml"/>
+		
+		<!-- Item Identification -->
+		<includefile source="ps/ms_ps_inventory.xml"/>
+		<!-- ID - Parcels -->
+		<includefile source="campaign/ms_record_parcel.xml"/>
+		
+		<includefile source="campaign/ms_char_inventory.xml"/>
+		
+		<script name="MSCritManager" file="scripts/ms_crit_manager.lua"/>
+		<script name="MSOptionsManager" file="scripts/ms_options_manager.lua"/>
+		<script name="AttunementTracker" file="scripts/attunement_tracker.lua"/>
+		<script name="AdvancedEffectsManager" file="scripts/manager_advanced_effects.lua"/>
+		<script name="HeightManager" file="scripts/manager_ms_height.lua"/>
+	</base>
+	
+</root>

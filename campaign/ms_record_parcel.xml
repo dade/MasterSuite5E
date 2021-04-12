@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+	
+	<windowclass name="parcel_item" merge="join">
+		<margins control="0,0,0,5" />
+		<sheetdata>
+			<hidden_record_isidentified name="isidentified"><class>item</class><ignorehost/></hidden_record_isidentified>
+			
+			<button_record_isidentified name="identified" insertbefore="shortcut">
+				<anchored to="rightanchor" width="20" height="20">
+					<top />
+					<right anchor="left" relation="relative" offset="-7" />
+				</anchored>
+			</button_record_isidentified>
+		</sheetdata>
+	</windowclass>
+	
+</root>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+	
+	<!--
+		Attunement Tracker Templates
+	-->
+	<template name="button_attunement_editor">
+		<buttoncontrol>
+			<anchored width="20" height="20"/>
+			<state icon="button_details" pressed="button_details_down"/>
+			<script>
+				function onButtonPress()
+					Interface.openWindow("attunement_editor", window.getDatabaseNode());
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	
+	<template name="attuned_count_label">
+		<stringcontrol>
+			<anchored to="inventorylist_iadd" position="lefthigh" offset="0,0" width="60" height="20"/>
+		</stringcontrol>
+	</template>
+	
+	<!--
+		Height Tracker
+	-->
+	<template name="image_record_step" merge="replace">
+		<imagecontrol name="image">
+			<indicators locked="image_locked" loading="image_loading"/>
+			<default snap="on" drawingsize="500,500"/>
+			<script file="campaign/scripts/ms_image.lua"/>
+		</imagecontrol>
+	</template>
+	
+	<template name="number_pool">
+		<basicnumber>
+			<frame mergerule="replace" name="fielddark" offset="4,3,4,3"/>
+			<tooltip>
+				<text>Click or CTRL+Scroll to edit.\r\nDouble-click to use/roll.</text>
+			</tooltip>
+			<anchored position="belowleft" offset="0,12" height="20"/>
+		</basicnumber>
+	</template>
+	
+	<template name="string_label">
+		<label>
+			<anchored position="lefthigh" width="100" height="20"/>
+			<static/>
+			<disabled/>
+			<tooltip/>
+		</label>
+	</template>
+	
+	<template name="string_useredit">
+		<stringfield>
+			<font>sheettext</font>
+			<lineoffset default="on">1</lineoffset>
+		</stringfield>
+	</template>
+	
+	<!--
+		Effects
+	-->
+	<template name="list_editor_master_effects">
+		<windowlist name="list">
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="0"/>
+				<left/>
+				<right/>
+			</anchored>
+			<allowdelete/>
+			<child>
+				<backcolor>1A40301E</backcolor>
+			</child>
+			<noscroll/>
+			<script>
+				function onInit()
+					registerMenuItem(Interface.getString("list_menu_createitem"), "insert", 5);
+				end
+				
+				function onMenuSelection(selection)
+					if selection == 5 then
+						self.addEntry(true);
+					end
+				end
+				
+				function onListChanged()
+					update();
+				end
+				
+				function update()
+					local bEdit = (window.effects_iedit.getValue() == 1);
+					for _, w in ipairs(getWindows()) do
+						w.idelete.setVisibility(bEdit);
+					end
+				end
+				
+				function addEntry(bFocus)
+					return createWindow();
+				end
+			</script>
+		</windowlist>
+	</template>
+	
+	<template name="master_effect_number">
+		<basicnumber>
+			<default>0</default>
+			<hideonvalue>0</hideonvalue>
+			<gmeditonly/>
+		</basicnumber>
+	</template>
+	
+	<template name="cycler_abilitytypes">
+		<button_stringcycler>
+			<parameters>
+				<defaultlabelres mergerule="replace">modifier</defaultlabelres>
+				<labelres>modifier</labelres>
+				<values>modifier</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+	
+	<template name="cycler_effecttypes">
+		<button_stringcycler>
+			<parameters>
+				<defaultlabelres mergerule="replace">dash</defaultlabelres>
+				<labelsres>save|ability|susceptibility|misc</labelsres>
+				<values>save|ability|susceptibility|misc</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+	
+	<template name="cycler_savetypes">
+		<button_stringcycler>
+			<parameters>
+				<defaultlabelres mergerule="replace">modifier</defaultlabelres>
+				<labelsres>modifier</labelsres>
+				<values>modifier</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+	
+	<template name="cycler_ability_short">
+		<button_stringcycler>
+			<parameters>
+				<defaultlabelres mergerule="replace">strength</defaultlabelres>
+				<labelsres>dexterity|constitution|intelligence|wisdom|charisma</labelsres>
+				<values>dex|con|int|wis|cha</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+	
+	<template name="combobox_saveselect">
+		<combobox>
+			<listdirection>down</listdirection>
+			<script>
+				function onInit()
+					super.onInit();
+					addItems({"STR", "DEX", "CON", "INT", "WIS", "CHA"});
+				end
+			</script>
+		</combobox>
+	</template>
+	
+	<template name="cycler_susceptibilitytypes">
+		<button_stringcycler>
+			<parameters>
+				<defaultlabelres mergerule="replace">immune</defaultlabelres>
+				<labelsres>resist|vuln</labelsres>
+				<values>resist|vuln</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+	
+	<template name="combobox_susceptibility_items">
+		<combobox>
+			<listdirection>down</listdirection>
+			<script>
+				function onInit()
+					super.onInit();
+					addItems(DataCommon.dmgtypes);
+					addItems(DataCommon.conditions);
+				end
+			</script>
+		</combobox>
+	</template>
+	
+	<template name="cycler_misctypes">
+		<button_stringcycler>
+			<parameters>
+				<defaultlabelres mergerule="replace">ac</defaultlabelres>
+				<labelsres>atk|check|dmg|heal|init_ae|save</labelsres>
+				<values>atk|check|dmg|heal|init_ae|save</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+	
+</root>

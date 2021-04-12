@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+	
+	<windowclass name="charsheet_inventory_contents" merge="join">
+		<sheetdata>
+			<label name="attuned_label" insertbefore="carried_header">
+				<anchored to="rightanchor" width="35" height="20">
+					<top offset="0"/>
+					<right anchor="left" relation="relative" offset="-5"/>
+				</anchored>
+				<static>ATND</static>
+				<tooltip textres="char_tooltip_attunement"/>
+				<script file="campaign/scripts/inv_attune.lua"/>
+			</label>
+			
+			<button_attunement_editor name="button_attunement_edit">
+				<anchored to="attuned_label" position="righthigh" offset="0"/>
+			</button_attunement_editor>
+			
+			<!-- Top counter `x/x`
+				This is a simple bit of code and a new heading, set into the label/title bar next to the `add` button.
+				It updates when we interact with this extension in any way, and tests show it works. Simple x/x where the first value
+				is the count, the second value is the total. Draws the numbers from the DB fields, rather that doing calculations and all that.
+				Handlers have been added to make sure they update on changes
+			-->
+			<label name="attunement_count">
+				<anchored to="inventorylist_iadd" position="lefthigh" offset="0,0">
+					<top offset="0"/>
+					<left offset="-37"/>
+					<right offset="-20"/>
+				</anchored>
+				<center/>
+				<script>
+					function onInit()
+						local node = window.getDatabaseNode();
+						if DB.getValue(node, "attune") == nil then
+							AttunementTracker.registerDefaults(node);
+						end
+						
+						DB.addHandler("charsheet.*.attune", "onChildUpdate", update);
+						DB.addHandler("charsheet.*.classes.*.level", "onUpdate", update);
+						OptionsManager.registerCallback("AT_max_attunement", update);
+						update();
+					end
+					
+					function onClose()
+						DB.removeHandler("charsheet.*.attune", "onChildUpdate", update);
+						DB.removeHandler("charsheet.*.classes.*.level", "onUpdate", update);
+						OptionsManager.unregisterCallback("AT_max_attunement", update);
+					end
+					
+					function update()
+						local node = window.getDatabaseNode();
+						AttunementTracker.forceUpdateAttunement(node);
+						self.setValue(DB.getValue(node, "attune.count") .. "/" .. DB.getValue(node, "attune.total"));
+					end
+				</script>
+			</label>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="char_invitem" merge="join">
+		<sheetdata>
+			<button_checkbox name="attune" insertbefore="carried">
+				<script file="campaign/scripts/at_checkbox.lua"/>
+				<anchored width="35" height="20">
+					<top offset="2"/>
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5"/>
+				</anchored>
+				<default>0</default>
+			</button_checkbox>
+			
+			<buttoncontrol name="no_attunement" insertbefore="carried">
+				<anchored width="35" height="20">
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+				<state icon="no_attunement" />
+				<visible>false</visible>
+			</buttoncontrol>
+			
+			<buttoncontrol name="na_attunement" insertbefore="carried">
+				<anchored width="35" height="20">
+					<top offset="2"/>
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5"/>
+				</anchored>
+				<state icon="na_attunement"/>
+				<visible>false</visible>
+			</buttoncontrol>
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="attunement_editor">
+		<frame>charsheethelper</frame>
+		<placement>
+			<size width="500" height="150"/>
+		</placement>
+		<sizelimits>
+			<minimum width="500" height="150"/>
+			<dynamic/>
+		</sizelimits>
+		<nodelete/>
+		<playercontrol/>
+		<!-- 
+			Attunement editor window script:
+			This should now be a lot smoother and cleaner to handle. Updating the misc field here updates
+			both the database entry as well as the x/x counter in the title bar.
+		-->
+		<script>
+			function onInit()
+				DB.addHandler("charsheet.*.attune.misc", "onUpdate", update);
+				OptionsManager.registerCallback("AT_max_attunement", update);
+				update();
+			end
+			
+			function onClose()
+				DB.removeHandler("charsheet.*.attune", "onChildUpdate", update);
+				OptionsManager.unregisterCallback("AT_max_attunement", update);
+			end
+			
+			function update()
+				local node = getDatabaseNode();
+				defAttune.setValue(AttunementTracker.getDefaultAttunementSlots(node));
+				totalAttune.setValue(AttunementTracker.getMaxAttunementSlots(node));
+				if miscAttune.getValue() ~= AttunementTracker.getMiscAttunementModifier(node) then
+					miscAttune.setValue(AttunementTracker.getMiscAttunementModifier(node));
+				end
+			end
+			
+			function updateTotal()
+				local node = getDatabaseNode();
+				local nDef = AttunementTracker.getDefaultAttunementSlots(node);
+				local nTot = AttunementTracker.getMaxAttunementSlots(node);
+				local nMisc = miscAttune.getValue();
+				
+				if AttunementTracker.getMiscAttunementModifier ~= nMisc then
+					DB.setValue(node, "attune.misc", "number", nMisc);
+				end
+				
+				if nMisc ~= 0 and nTot ~= tonumber(nDef + nMisc) then
+					DB.setValue(node, "attune.total", "number", nDef + nMisc);
+				end
+				update();
+			end
+		</script>
+		
+		<sheetdata>
+			<windowtitlebar_char name="title">
+				<prefix>char_label_atOpts</prefix>
+			</windowtitlebar_char>
+			<anchor_title_charsheethelper name="contentanchor"/>
+			
+			<anchor_column name="columnanchor">
+				<anchored to="contentanchor" position="below" offset="0,-5"/>
+			</anchor_column>
+			
+			<label name="defAttune_label">
+				<static>Attunement Slots: </static>
+				<anchored width="120">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="20"/>
+					<left offset="30"/>
+				</anchored>
+			</label>
+		
+			<simplenumberc name="defAttune" source="attune.default">
+				<anchored to="defAttune_label" position="righthigh" offset="5,0" width="45" height="20"/>
+				<frame name="fieldlight" offset="7,5,7,5"/>
+				<min>0</min>
+				<default>3</default>
+				<readonly/>
+			</simplenumberc>
+			
+			<stringcontrol name="lbl_defAttune">
+				<static>Base</static>
+				<anchored to="defAttune" position="above" offset="0,0" height="20" />
+				<center />
+			</stringcontrol>
+			
+			<label name="miscAttune_Add">
+				<static>+</static>
+				<anchored to="defAttune" position="righthigh" offset="10,0" width="10" height="20"/>
+			</label>
+			
+			<simplenumberc name="miscAttune" source="attune.misc">
+				<anchored to="miscAttune_Add" position="righthigh" offset="10,0" width="45" height="20"/>
+				<frame name="fielddark" offset="7,5,7,5"/>
+				<script>
+					function onValueChanged()
+						window.updateTotal();
+					end
+				</script>
+				<default>0</default>
+			</simplenumberc>
+			
+			<stringcontrol name="lbl_miscAttune">
+				<static>Misc</static>
+				<anchored to="miscAttune" position="above" offset="0,0" height="20" />
+				<center />
+			</stringcontrol>
+			
+			<label name="totalAttune_Equal">
+				<static>=</static>
+				<anchored to="miscAttune" position="righthigh" offset="10,0" width="10" height="20"/>
+			</label>
+
+			<simplenumberc name="totalAttune" source="attune.total">
+				<anchored to="totalAttune_Equal" position="righthigh" offset="10,0" width="45" height="20"/>
+				<frame name="fieldlight" offset="7,5,7,5"/>
+				<readonly/>
+			</simplenumberc>
+			
+			<stringcontrol name="lbl_totAttune">
+				<static>Total</static>
+				<anchored to="totalAttune" position="above" offset="0,0" height="20" />
+				<center />
+			</stringcontrol>
+			
+			<close_charsheethelper/>
+		</sheetdata>
+	</windowclass>
+	
+</root>

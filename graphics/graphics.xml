@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+	
+	<icon name="no_attunement" file="graphics/attunement/no_attunement.png"/>
+	<icon name="na_attunement" file="graphics/attunement/na_attunement.png"/>
+	
+	<font name="height_medium">
+		<fgffile name="graphics/fonts/diemod.fgf" />
+		<ttf file="graphics/fonts/Noto_Sans/NotoSans-Bold.ttf" name="Noto Sans Bold" size="24" />
+		<color value="#000000" />
+	</font>	
+	
+</root>

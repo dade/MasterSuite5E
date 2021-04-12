@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+	
+	<windowclass name="item_main" merge="join">
+		<sheetdata>
+			<subwindow name="master_effects_contents" insertbefore="properties_label">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0"/>
+					<left offset="5"/>
+					<right offset="5"/>
+				</anchored>
+				<class>master_effects_subwindow</class>
+				<activate/>
+				<fastinit/>
+				<invisible/>
+			</subwindow>
+		</sheetdata>
+	</windowclass>
+	
+</root>

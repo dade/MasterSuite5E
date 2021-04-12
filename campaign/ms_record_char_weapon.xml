@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+	
+	<windowclass name="char_weapon" merge="join">
+		<script file="campaign/scripts/ms_record_char_weapon.lua" merge="replace"/>
+	</windowclass>
+	
+</root>
