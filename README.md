@@ -3,7 +3,7 @@ This is a suite of extensions created for Fantasy Grounds Unity's 5E ruleset, co
 
 The goal was, and still is, to combine these extensions in a seamless way that allowed them to work with each other, as well as ensuring quick debugging and fixing when my players/GMs experience issues.
 
-The following extensions have been included and/or altered with permission from their authors. Full credit of the original extension goes to them and their contributors. See [link](#Credits-&-Attributions)
+The following extensions have been included and/or altered with permission from their authors. Full credit of the original extension goes to them and their contributors. See [link](#Credits--Attributions)
 
 ## My Own Creations
 MasterSuite5E makes a number of changes to included extensions and eventually will become their own thing - if development calls for it. These changes are done as more of an extension of the ruleset rather than "options" provided to other GMs. Why? Because this extension is tailor-made and developed for my own games and those that are run by my friends in our Discord server. We have a close-knit player group, and play in each other's campaigns, so the needs of the extension doesn't vary between us. We all share the same house rule preferences and FG options settings.
