@@ -446,7 +446,7 @@ function getUserFromNode(node)
 	local sUser = nil;
 	
 	for _, vUser in ipairs(User.getActiveUsers()) do
-		for _, vIdentity in ipairs(User.getActiveIndentities(vUser)) do
+		for _, vIdentity in ipairs(User.getActiveIdentities(vUser)) do
 			if sRecord == "charsheet." .. vIdentity then
 				sUser = vUser;
 				break;
