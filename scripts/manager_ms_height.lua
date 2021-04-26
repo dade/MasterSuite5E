@@ -143,15 +143,27 @@ function onWheel(tokenCT, notches)
 end
 
 function getCTEntryHeight(ctEntry)
+	local height = 0;
+
 	if ctEntry then
 		local heightNode = ctEntry.getChild("height");
 
 		if heightNode then
-			return heightNode.getValue();
+			height = heightNode.getValue();
 		else
 			-- Debug.console("no height node");
 		end
 	end
 
-	return 0;
+	return height;
+end
+
+function getHeight(ctNode)
+	local hNode = DB.getChild(ctNode, "height");
+	local nHeight = 0;
+	if hNode and hNode.getValue() then
+		nHeight = tonumber(hNode.getValue());
+	end
+
+	return nHeight;
 end
