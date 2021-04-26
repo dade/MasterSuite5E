@@ -19,12 +19,16 @@ For a full list of features and the intricate uses of them, please refer to the 
 	* Currently other version of this extension exists, GKEnialb's is the one that is closest to this project. As a result, I will share some back-and-forth with them if and when I resolve issues and I will include the problems they solve in this extension.
 
 ## Changelog
+### v2.0.1 - 26-Apr-2021
+#### HeightManager
+* [FIXED] Height now calculating on NPCs larger than "Medium" size, incorporating GKEnialb's work alongside MasterSuite
+* [NEW] Leveraging FGU's new `getDistanceBetween` functions
+
 ### v2.0.0 - 12-Apr-2021
 #### General
 * [NEW] Major rewrite of the entire extension
 * [NEW] Reworked "override" scripts to reference and call base FG API, rather than re-writing unnecessarily
 * [NEW] Beginning of compatibility features with other extensions
-
 #### AdvancedEffects
 * [CHANGED] Rewrite of override codes to only rewrite when necessary
 #### AttunementTracker
