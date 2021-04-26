@@ -3,9 +3,9 @@
 <root version="3.0" release="1.0.0">
 	
 	<properties>
-		<name>[DEV] D&amp;D 5E Master Suite</name>
+		<name>D&amp;D 5E Master Suite</name>
 		<description>
-			<text>D&amp;D 5E Master Suite - v2.0.1-beta</text>
+			<text>D&amp;D 5E Master Suite - v2.0.1</text>
 			<author>Dale "badgr" Emasiri</author>
 		</description>
 		<loadorder>100</loadorder>
@@ -14,7 +14,7 @@
 		</ruleset>
 	</properties>
 	
-	<announcement text="Master Suite 5E v2.0.1-beta\rA combination of features for D&amp;D 5E ruleset of Fantasy Grounds Unity. For full details and changelog, visit https://github.com/dade/MasterSuite5E." font="emotefont"/>
+	<announcement text="Master Suite 5E v2.0.1\rA combination of features for D&amp;D 5E ruleset of Fantasy Grounds Unity. For full details and changelog, visit https://github.com/dade/MasterSuite5E." font="emotefont"/>
 	
 	<base>
 		<includefile source="strings/ms_global.xml"/>
