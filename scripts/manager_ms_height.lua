@@ -167,3 +167,36 @@ function getHeight(ctNode)
 
 	return nHeight;
 end
+
+function getHeightDifferential(sourceNode, targetNode)
+	if User.getRulesetName() == "5E" then
+		local sourceSize = StringManager.trim(DB.getValue(sourceNode, "size", ""):lower());
+		local targetSize = StringManager.trim(DB.getValue(targetNode, "size", ""):lower());
+
+		local sSizeIndex = 1;
+		local tSizeIndex = 1;
+		if sourceSize == "large" then
+			sSizeIndex = 2;
+		elseif sourceSize == "huge" then
+			sSizeIndex = 3;
+		elseif sourceSize == "gargantuan" then
+			sSizeIndex = 4;
+		end
+
+		if targetSize == "large" then
+			tSizeIndex = 2;
+		elseif targetSize == "huge" then
+			tSizeIndex = 3;
+		elseif targetSize == "gargantuan" then
+			tSizeIndex = 4;
+		end
+
+		return sSizeIndex, tSizeIndex;
+	end
+end
+
+function getHeightOrientation(ctNode)
+	local heightOrientation = 0;
+
+	return heightOrientation;
+end

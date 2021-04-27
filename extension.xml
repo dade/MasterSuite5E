@@ -3,9 +3,9 @@
 <root version="3.0" release="1.0.0">
 	
 	<properties>
-		<name>D&amp;D 5E Master Suite</name>
+		<name>[DEV] D&amp;D 5E Master Suite</name>
 		<description>
-			<text>D&amp;D 5E Master Suite - v2.0.1</text>
+			<text>D&amp;D 5E Master Suite - v2.0.2</text>
 			<author>Dale "badgr" Emasiri</author>
 		</description>
 		<loadorder>100</loadorder>

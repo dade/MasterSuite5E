@@ -22,6 +22,9 @@ function onMeasurePointer(pixellength, type, startx, starty, endx, endy)
 	local startz = 0;
 	local endz = 0;
 	local ctNodeOrigin = getCTNodeAt(startx, starty, gridSize);
+	local nDistBetween = 0;
+	local sSizeIndex, tSizeIndex;
+	local sourceDepth, targetDepth;
 
 	if ctNodeOrigin then
 		local ctNodeTarget = getCTNodeAt(endx, endy, gridSize);
@@ -29,7 +32,27 @@ function onMeasurePointer(pixellength, type, startx, starty, endx, endy)
 		if ctNodeTarget then
 			startz = HeightManager.getHeight(ctNodeOrigin) * gridSize / units;
 			endz = HeightManager.getHeight(ctNodeTarget) * gridSize / units;
+
+			sSizeIndex, tSizeIndex = HeightManager.getHeightDifferential(ctNodeOrigin, ctNodeTarget);
+			sourceDepth = sSizeIndex * gridSize;
+			targetDepth = tSizeIndex * gridSize;
+			local sourceToken = CombatManager.getTokenFromCT(ctNodeOrigin);
+			local targetToken = CombatManager.getTokenFromCT(ctNodeTarget);
+			nDistBetween = getDistanceBetween(sourceToken, targetToken);
 		end
+	end
+
+	-- Offset for the physical height of the token
+	if startz <= targetDepth then
+		startz = 0;
+	else
+		startz = math.abs(startz - targetDepth + gridSize);
+	end
+
+	if endz <= sourceDepth then
+		endz = 0;
+	else
+		endz = math.abs(endz - sourceDepth + gridSize);
 	end
 
 	local distance = getDistanceBetween3D(startx, starty, startz, endx, endy, endz);
@@ -111,7 +134,7 @@ function matchWithin(sx, sy, ex, ey, sizeMult, gridSize)
 	local lbx = ex;
 	local lby = ey;
 	local ubx = ex;
-	local eby = ey;
+	local uby = ey;
 
 	if ex > sx then
 		lbx = ex - gridSize * sizeMult;
