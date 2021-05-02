@@ -27,6 +27,7 @@ function onMeasurePointer(pixellength, type, startx, starty, endx, endy)
 	local sourceDepth, targetDepth;
 
 	if ctNodeOrigin then
+		Debug.console(ctNodeOrigin.getHolders());
 		local ctNodeTarget = getCTNodeAt(endx, endy, gridSize);
 
 		if ctNodeTarget then
@@ -40,19 +41,19 @@ function onMeasurePointer(pixellength, type, startx, starty, endx, endy)
 			local targetToken = CombatManager.getTokenFromCT(ctNodeTarget);
 			nDistBetween = getDistanceBetween(sourceToken, targetToken);
 		end
-	end
 
-	-- Offset for the physical height of the token
-	if startz <= targetDepth then
-		startz = 0;
-	else
-		startz = math.abs(startz - targetDepth + gridSize);
-	end
+		-- Offset for the physical height of the token
+		if startz <= targetDepth then
+			startz = 0;
+		else
+			startz = math.abs(startz - targetDepth + gridSize);
+		end
 
-	if endz <= sourceDepth then
-		endz = 0;
-	else
-		endz = math.abs(endz - sourceDepth + gridSize);
+		if endz <= sourceDepth then
+			endz = 0;
+		else
+			endz = math.abs(endz - sourceDepth + gridSize);
+		end
 	end
 
 	local distance = getDistanceBetween3D(startx, starty, startz, endx, endy, endz);
