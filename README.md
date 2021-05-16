@@ -19,6 +19,9 @@ For a full list of features and the intricate uses of them, please refer to the 
 	* Currently other version of this extension exists, GKEnialb's is the one that is closest to this project. As a result, I will share some back-and-forth with them if and when I resolve issues and I will include the problems they solve in this extension.
 
 ## Changelog
+### v2.0.3 - 16-May-2021
+* [FIXED] Issue where having tokens selected and drawing a custom pointer/ruler tool caused errors
+
 ### v2.0.2 - 02-May-2021
 * [ADDED] Offsets to height calculations to take into account the physical height of the token in the simulated 3D environment
   * This means that hovering 10ft above the ground next to a Large (10x10x10 ft.) creature still puts the range calculations at 5ft
